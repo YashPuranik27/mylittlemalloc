@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "mymalloc.c"
+#include "mymalloc.h"
 
 int main() {
     // Test 1: malloc() reserves unallocated memory.

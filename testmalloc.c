@@ -37,6 +37,26 @@ void testDistinctBytePattern() {
     
 }
 
+// Test 4: free() deallocates memory
+void testFree() {
+    int *ptr = (int *)malloc(sizeof(int));
+
+    if (ptr == NULL) {
+        printf("Test 3 FAILED: malloc() did not allocate memory\n");
+        return;
+    }
+
+    free(ptr);
+
+    // Attempt to access freed memory
+    *ptr = 42;
+    if (*ptr == 42) {
+        printf("Test 3 FAILED: Memory was not deallocated\n");
+    } else {
+        printf("Test 3 PASSED\n");
+    }
+}
+
 int main() {
     testMalloc();
     testMallocOverlap();

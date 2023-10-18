@@ -35,7 +35,9 @@ void *my_malloc(size_t size, int line, char *file) {
     if (size == 0 || size > (MEMLENGTH * 8) - 8) {
         return NULL;
     }
-
+    
+    coalesce();
+    
     size = ROUNDUP(size);  // Round up size to nearest 8.
     HEADER *new = (HEADER *)memory, *next;  // Create header pointers new and next.
 

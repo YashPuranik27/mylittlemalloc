@@ -1,3 +1,4 @@
+#include <stddef.h>
 // MACROS
 #define malloc(size) my_malloc(size, __LINE__, __FILE__)
 #define free(ptr) my_free(ptr, __LINE__, __FILE__)

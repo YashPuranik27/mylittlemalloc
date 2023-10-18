@@ -61,6 +61,6 @@ int main() {
     testMalloc();
     testMallocOverlap();
     testDistinctBytePattern();
-
+    testfree();
     return 0;
 }

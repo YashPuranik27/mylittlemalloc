@@ -88,7 +88,7 @@ void *my_malloc(size_t size, int line, char *file) {
 // Function to free allocated memory and log line and file info.
 void my_free(void *ptr, int line, char *file) {
     // If memory is not initialized, print an error message and return.
-    if (!(HEADER *)memory) {
+    if (!((HEADER *)memory)->size) {
         printf("ERROR: free() cannot be called before memory is initialized \n ORIGIN: at line %d in file %s", line, file);
         return;
     }

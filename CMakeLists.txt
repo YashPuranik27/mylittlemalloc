@@ -6,4 +6,5 @@ set(CMAKE_C_STANDARD 11)
 add_executable(mylittlemalloc
         mymalloc.c
         mymalloc.h
-        memgrind.c)
+        memgrind.c
+        testmalloc.c)

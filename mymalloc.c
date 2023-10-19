@@ -42,8 +42,6 @@ void *my_malloc(size_t size, int line, char *file) {
         return NULL;
     }
     
-    coalesce();
-    
     size = ROUNDUP(size);  // Round up size to nearest 8.
     HEADER *new = (HEADER *)memory, *next;  // Create header pointers new and next.
 
@@ -61,7 +59,7 @@ void *my_malloc(size_t size, int line, char *file) {
         // Return a pointer to the allocated memory.
         return memory + 1;
     }
-
+    coalesce();
     HEADER *head = (HEADER *)memory;  // Define head pointing at the start of memory.
     // Define next pointing to the chunk of memory right after head's data.
     next = (HEADER *)((char *)head + HEADER_SIZE + head->size);

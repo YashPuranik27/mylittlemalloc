@@ -42,18 +42,18 @@ void testFree() {
     int *ptr = (int *)malloc(sizeof(int));
 
     if (ptr == NULL) {
-        printf("Test 3 FAILED: malloc() did not allocate memory\n");
+        printf("Test 4 FAILED: malloc() did not allocate memory\n");
         return;
     }
 
     free(ptr);
 
-    // Attempt to access freed memory
-    *ptr = 42;
-    if (*ptr == 42) {
-        printf("Test 3 FAILED: Memory was not deallocated\n");
+    int *ptr2 = (int *)malloc(sizeof(int));
+    *ptr2=3;
+    if (*ptr != *ptr2) {
+        printf("Test 4 FAILED: Memory was not deallocated\n");
     } else {
-        printf("Test 3 PASSED\n");
+        printf("Test 4 PASSED\n");
     }
 }
 

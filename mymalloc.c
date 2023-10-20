@@ -9,6 +9,12 @@
 #define ROUNDUP(x) (((x) + 7) & ~7)  // Macro for rounding up to the nearest 8.
 #define MAX_BYTE 4096          // Define maximum byte constant for use in the coalesce function.
 
+typedef struct header
+{
+    size_t size;
+    int is_occupied;
+} HEADER;
+
 static double memory[MEMLENGTH];  // Declare a static array of memory.
 void *find_memory_block(int size, int line, char *file, HEADER *current);
 int free_memory_block(void *ptr, int line, char *file);

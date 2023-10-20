@@ -45,9 +45,7 @@ void testFree() {
         printf("Test 4 FAILED: malloc() did not allocate memory\n");
         return;
     }
-
     free(ptr);
-
     int *ptr2 = (int *)malloc(sizeof(int));
     *ptr2=3;
     if (*ptr != *ptr2) {
@@ -57,10 +55,24 @@ void testFree() {
     }
 }
 
+// Test 5: Errors are detected and reported
+void testErrorReporting() {
+    int x;
+    free(&x);  // Test 1: Calling free() with an address not obtained from malloc().
+
+    int *p = malloc(sizeof(int)*2);
+    free(p + 1);  // Test 2: Calling free() with an address not at the start of a chunk.
+
+    int *q = malloc(sizeof(int)*100);
+    free(q);      // Test 3: Calling free() a second time on the same pointer.
+    free(q);      // This should report an error
+}
+
 int main() {
     testMalloc();
     testMallocOverlap();
     testDistinctBytePattern();
     testFree();
+    testErrorReporting();
     return 0;
 }

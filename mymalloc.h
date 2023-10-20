@@ -5,11 +5,6 @@
 #define free(ptr) my_free(ptr, __LINE__, __FILE__)
 
 // STRUCTURES
-typedef struct header
-{
-    size_t size;
-    int is_occupied;
-} HEADER;
 
 // FUNCTIONS
 void *my_malloc(size_t size, int line, char *file);

@@ -22,7 +22,7 @@ void testMallocOverlap() {
         return;
     }
 
-    if (ptr2 <= ptr1 + sizeof(int) && ptr2 >= ptr1) {
+    if (ptr2 <= ptr1+1 && ptr2 >= ptr1) {
         printf("Test 2 FAILED: Overlapping memory regions\n");
     } else {
         printf("Test 2 PASSED\n");

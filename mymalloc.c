@@ -134,7 +134,7 @@ void my_free(void *ptr, int line, char *file) {
     // Check if memory is initialized
     // This checks if the memory has been initialized before proceeding with the free operation
     // TODO: Currently a work in progress
-    if ((HEADER *)memory == 0) {
+    if (((HEADER *)memory)->size == 0) {
         printf("ERROR: free() cannot be called before memory is initialized \n ORIGIN: From line %d in file %s", line, file);
         return;
     }

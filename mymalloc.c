@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "mymalloc.h"
+
 
 #define MEMLENGTH 512          // Define the length of the memory array.
 #define MEMLENGTH_BYTES (MEMLENGTH * sizeof(double))  // Define the byte size of the memory.

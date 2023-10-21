@@ -83,7 +83,7 @@ void *my_malloc(size_t size, int line, char *file) {
         printf("ERROR: Not enough space at line %d in file %s\n", line, file);
         return NULL;
     }
-    return (void *)(result + 1);
+    return (void *)(result);
 }
 
 // Function to find a suitable memory block

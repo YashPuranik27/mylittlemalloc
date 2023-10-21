@@ -159,23 +159,21 @@ void my_free(void *ptr, int line, char *file) {
 // Function to free a memory block
 int free_memory_block(void *ptr, int line, char *file) {
     HEADER *current = (HEADER *)memory;
+    ptr = (HEADER *)(ptr)-1;
 
-    // Traverse through the memory blocks
-    // Looping through each memory block to find the matching pointer
-    while ((void *)current < (void *)memory + MEMLENGTH_BYTES) {
-        void *data_ptr = (void *)((char *)current + HEADER_SIZE);
+    while ((char *)current < (char *)memory + MEMLENGTH_BYTES) {
 
         // Check if the pointer matches and is already freed
         // Verifies if a matching pointer is found and it’s already marked as free, an error message is printed and the memory blocks are coalesced
-        if (current->is_occupied == 0 && data_ptr == ptr) {
+        if (current->is_occupied == 0 && current == ptr) {
             printf("ERROR: Pointer is already freed \n From line %d in file %s", line, file);
             coalesce();
-            return 0;
+            return 1;
         }
 
             // Check if the pointer matches and is not freed, then free it
             // If a matching pointer that is not freed is found, it gets freed and the memory blocks are coalesced
-        else if (current->is_occupied == 1 && data_ptr == ptr) {
+        else if (current->is_occupied == 1 && current == ptr) {
             current->is_occupied = 0;
             coalesce();
             return 1;
@@ -188,6 +186,6 @@ int free_memory_block(void *ptr, int line, char *file) {
 
     // Pointer not found in the memory blocks
     // Returns -1 if no matching pointer is found after traversing all memory blocks
-    return -1;
+    return 0;
 }
 

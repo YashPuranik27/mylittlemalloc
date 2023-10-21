@@ -37,7 +37,7 @@ void coalesce() {
         // If the current and next blocks are free, merge them
         // If both adjacent blocks are not occupied, they are merged into one larger block. This is done by updating the size of the current block to include the size of the next block and the header size
         if (!current->is_occupied && !next->is_occupied) {
-            current->size += next->size + HEADER_SIZE;
+            current->size += (next->size + HEADER_SIZE);
         } else {
             // Move to the next block
             // If the blocks are not merged, we move on to the next block to continue the coalescing process
@@ -77,22 +77,23 @@ void *my_malloc(size_t size, int line, char *file) {
 
     // Try to find and allocate suitable space
     // This line of code calls find_memory_block to find a suitable space in the already-initialized memory, marking it as occupied
-    HEADER *result = find_memory_block(size, line, file, new);
+    HEADER *result = find_memory_block(size, line, file);
     if (!result) {
         // If no suitable space is found, we throw an error, showing where in the code the allocation failed
         printf("ERROR: Not enough space at line %d in file %s\n", line, file);
         return NULL;
     }
+    
     return (void *)(result);
 }
 
 // Function to find a suitable memory block
-void *find_memory_block(int size, int line, char *file, HEADER *current) {
+void *find_memory_block(int size, int line, char *file) {
     // Minimum space to create a new block
     // Defines the smallest space that should remain in a block after allocation to create a new block
     const int MIN_SPACE = 16;
     HEADER *next;
-
+    HEADER *current = (HEADER *)memory;
     // Traversing through the memory blocks
     // Iterates through each memory block to find a suitable one for allocation
     while ((char *)current < (char *)memory + MEMLENGTH_BYTES) {
@@ -109,7 +110,7 @@ void *find_memory_block(int size, int line, char *file, HEADER *current) {
             // Case: Block is larger than required, and space remaining is usable
             // If a block is larger than required and the space remaining after allocation is enough to host another block, the block is split, and the suitable part is returned
             if (current->size - size >= MIN_SPACE + HEADER_SIZE) {
-                HEADER *new_next = (HEADER *)((char *)current + HEADER_SIZE + size);
+                HEADER *new_next = (HEADER *)((char *)current + size)+1;
                 new_next->size = current->size - size - HEADER_SIZE;
                 new_next->is_occupied = 0;
 
@@ -188,4 +189,3 @@ int free_memory_block(void *ptr, int line, char *file) {
     // Returns -1 if no matching pointer is found after traversing all memory blocks
     return 0;
 }
-

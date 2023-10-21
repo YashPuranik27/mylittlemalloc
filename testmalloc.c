@@ -34,7 +34,22 @@ void testMallocOverlap() {
 
 // Test 3: Write a program that allocates several large objects. Once allocation is complete, it fills each object with a distinct byte pattern.
 void testDistinctBytePattern() {
+    int *ptr = (int *)malloc(sizeof(int)*100);
+    int *ptr2 = (int *)malloc(sizeof(int));
+    int *ptr3 = (int *)malloc(sizeof(int)*100);
+    free(ptr2);
+    int *ptr4 = (int *)malloc(sizeof(int));
+
+    *ptr4=3;
+    if (*ptr2 != *ptr4) {
+        printf("Test 3 FAILED\n");
+    } else {
+        printf("Test 3 PASSED\n");
+    }
     
+    free(ptr);
+    free(ptr3);
+    free(ptr4);
 }
 
 // Test 4: free() deallocates memory
